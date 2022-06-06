@@ -3,13 +3,13 @@
 
 int	main(int ac, char **av)
 {
-	if (ac == 1 || ac > 3)
-	{
+	(void)av;
+	if (ac > 2)
 		ft_printf("Invalid number of arguments.\n");
-	}
-	else
-	{
-		ft_printf("%s\n", av[1]);
-	}
+
+	char *ptr_base_directory = get_current_directory_path();
+
+	if (ac == 1)
+		list_base_directory(ptr_base_directory);
 	return 0;
 }
