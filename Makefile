@@ -20,7 +20,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C $(LIBFT_PATH)
 	@make -C $(FT_PRINTF_PATH)
-	@gcc $(FLAGS) $(OBJ) $(FT_PRINTF_PATH)/*.o  $(OBJ_PRINTF) $(INC) -L $(LIBFT_PATH) -lft -o $(NAME)
+	@gcc -g -O0 $(FLAGS) $(OBJ) $(FT_PRINTF_PATH)/*.o  $(OBJ_PRINTF) $(INC) -L $(LIBFT_PATH) -lft -o $(NAME)
 	@echo "\033[32mBinary \033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"
 
 $(OBJ_PATH)%.o: $(SRCS_PATH)%.c
