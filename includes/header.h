@@ -19,6 +19,8 @@ typedef struct	s_options
 	int	invalid;
 }				t_options;
 
+void        handle_ac_two(char *av);
+
 void		select_print_color(int file_type, char *file_name, char *path);
 void		list_base_directory(char *base_path, t_options *options);
 int			check_dash_in_argv(char *arg);

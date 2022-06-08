@@ -1,6 +1,37 @@
 # include "../includes/header.h"
 # include "../ft_printf/includes/ft_printf.h"
 
+void    handle_ac_two(char *av)
+{
+    //if (check_dash_in_argv(av) == )
+    // Check si y'a un dash, dans ce cas on verif les args,
+    // si c'est pas valid comme args on le dit
+
+    // Si on a pas de dash, on test de list le directory av
+    // si le directory est pas valide, on print no such file or directory
+    if (get_directory_path(av) != NULL)
+        list_base_directory(av, NULL);
+    else
+    {
+        t_options *args;
+        args = check_and_re_order_args(av);
+        // ft_printf("args->invalid : %d\n", args->invalid);
+        if (args->invalid == 1)
+            ft_printf("ft_ls: Invalid argument(s) : %s\n", av);
+        else
+        {
+            ft_printf("Valid arguments :\n");
+            ft_printf("%p\n", args);
+            ft_printf("l : %d\n", args->l);
+            ft_printf("a : %d\n", args->a);
+            ft_printf("r : %d\n", args->r);
+            ft_printf("R : %d\n", args->R);
+            ft_printf("t : %d\n", args->t);
+        }
+    }
+
+}
+
 void	select_print_color(int file_type, char *file_name, char *path)
 {
 	/*
@@ -95,6 +126,11 @@ t_options	*check_and_re_order_args(char *args)
 	t_options	*options;
 	if (!(options = malloc(sizeof(t_options))))
 		return NULL;
+	if (ft_strlen(args) < 2)
+    {
+	    options->invalid = 1;
+	    return options;
+	}
 	while (args[i])
 	{
 		switch (args[i])
