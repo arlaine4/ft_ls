@@ -30,18 +30,21 @@ typedef struct 	s_file
 
 // -------------------------------------------------------------- //
 //							Parsing.c							  //
-void	handle_no_args();
+void		handle_no_args();
+void		handle_double_args(char *av);
+void		handle_triple_args(char *av1, char *av2);
+t_options	*get_prog_options(char *s, t_options *options);
 // -------------------------------------------------------------- //
 
 // -------------------------------------------------------------- //
 //							utils.c								  //
-void	select_print_color(char *path, char *name, int type);
-char	*get_directory_path(char *buff, char *path);
+void		select_print_color(char *path, char *name, int type);
+char		*get_directory_path(char *buff, char *path);
 // -------------------------------------------------------------- //
 
 // -------------------------------------------------------------- //
 //							list.c								  //
-t_file	*init_list_head(struct dirent *entry);
+t_file		*init_list_head(struct dirent *entry);
 // -------------------------------------------------------------- //
 
 
