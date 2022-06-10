@@ -1,31 +1,48 @@
 #ifndef HEADER_H
 # define HEADER_H
 
+# include <dirent.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <dirent.h>
+# include "../ft_printf/libft/libft.h"
 
-# include <sys/stat.h>
 
-static const int MAX_PATH_LENGTH=256;
-
-typedef struct	s_options
+// struct handleing ft_ls arguments such as -l -a -R -r -t -> -lRrat
+typedef struct s_options
 {
-	int	l;
 	int	a;
 	int	r;
-	int R;
+	int	R;
 	int	t;
+	int	l;
 	int	invalid;
 }				t_options;
 
-void        handle_ac_two(char *av);
+// struct containing informations about each of parsed using readdir, also
+// containing pointer to next file descriptor since we are using a linked list
+typedef struct 	s_file
+{
+	char			*name;
+	int				type;
+	struct s_file	*next;
+}				t_file;
 
-void		select_print_color(int file_type, char *file_name, char *path);
-void		list_base_directory(char *base_path, t_options *options);
-int			check_dash_in_argv(char *arg);
-char		*get_current_directory_path();
-DIR			*get_directory_path(char *path);
-t_options	*check_and_re_order_args(char *args);
 
-# endif
+// -------------------------------------------------------------- //
+//							Parsing.c							  //
+void	handle_no_args();
+// -------------------------------------------------------------- //
+
+// -------------------------------------------------------------- //
+//							utils.c								  //
+void	select_print_color(char *path, char *name, int type);
+char	*get_directory_path(char *buff, char *path);
+// -------------------------------------------------------------- //
+
+// -------------------------------------------------------------- //
+//							list.c								  //
+t_file	*init_list_head(struct dirent *entry);
+// -------------------------------------------------------------- //
+
+
+#endif
