@@ -38,8 +38,10 @@ t_options	*get_prog_options(char *s, t_options *options);
 
 // -------------------------------------------------------------- //
 //							utils.c								  //
+DIR			*get_directory(char *path);
 void		select_print_color(char *path, char *name, int type);
-char		*get_directory_path(char *buff, char *path);
+void		print_directory_content(char *dir_path, DIR *dir);
+char		*get_current_directory_path(char *buff, char *path);
 // -------------------------------------------------------------- //
 
 // -------------------------------------------------------------- //

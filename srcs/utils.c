@@ -18,10 +18,41 @@ void	select_print_color(char *path, char *name, int type)
 		ft_printf("\033[36m");
 }
 
-char	*get_directory_path(char *buff, char *path)
+
+DIR		*get_directory(char *path)
+{
+	DIR *dir;
+	dir = opendir(path);
+	if (dir == NULL)
+		return NULL;
+	return dir;
+}
+
+void	print_directory_content(char *dir_path, DIR *dir)
+{
+	struct	dirent *content;
+	while ((content = readdir(dir)) != NULL)
+	{
+		select_print_color(dir_path, content->d_name, content->d_type);
+		if (content->d_name[0] != '.')
+			ft_printf("%s  ", content->d_name);
+		ft_printf("\033[0m");
+	}
+	ft_printf("\n");
+}
+
+char	*get_current_directory_path(char *buff, char *path)
 {
 	if (ft_strcmp(path, ".") == 0)
 		buff = getcwd(buff, 256);
+	else
+	{
+		buff = getcwd(buff, 256);
+		buff = ft_strjoin(buff, "/");
+		buff = ft_strjoin(buff, path);
+		//tmp = ft_strjoin(path, "/");
+	}
+		
 	// add condition if we do have path as a parameter so we don't use getcwd
 	// but opendir or something like that instead
 	if (buff == NULL)

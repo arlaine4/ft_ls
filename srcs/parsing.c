@@ -1,37 +1,38 @@
 # include "../includes/header.h"
 # include "../ft_printf/includes/ft_printf.h"
 
-void	handle_no_args()
+void	handle_no_args(char *path)
 {
-	//t_file	*head = NULL;
-	char	*dir_path;
-	DIR		*dir;
+	char 	*dir_path;
+	DIR 	*dir;
 	char	buff[256];
-	struct	dirent *entry;
 
-	dir_path = get_directory_path(buff, ".");
-	dir = opendir(dir_path);
-	//entry = readdir(dir);
-	//head = init_list_head(entry);
-	//ft_printf("head_name : %s\thead_type : %d\n", head->name, head->type);
-
-	if (dir == NULL)
-		ft_printf("Can't open current folder for some reason.\n");
+	if (path == NULL)
+		dir_path = get_current_directory_path(buff, ".");
 	else
 	{
-		while ((entry = readdir(dir)) != NULL)
-		{
-			select_print_color(dir_path, entry->d_name, entry->d_type);
-			if (entry->d_name[0] != '.')
-				ft_printf("%s  \033[0m", entry->d_name);
-		}
-		ft_printf("\n");
+		dir_path = get_current_directory_path(buff, path);
+		// if dir_path == NULL, try and verif if a file with the same exists in the current working folder
 	}
+	if (dir_path != NULL)
+	{
+		dir = get_directory(dir_path);
+		if (dir == NULL)
+			ft_printf("ft_ls: can't open directory, check access permissions.\n");
+		else
+			print_directory_content(dir_path, dir);
+	}
+	else
+		ft_printf("ft_ls: cannot access '%s': No such file or directory", path);
 }
 
 void	handle_double_args(char *av)
 {
-	(void)av;	
+	// If argument is a folder or file
+	if (av[0] != '-')
+		handle_no_args(av);
+	else
+		ft_printf("Need to handle handle_double_args with - arguments as av[1]\n");
 }
 
 void	handle_triple_args(char *av1, char *av2)

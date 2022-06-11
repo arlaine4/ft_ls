@@ -5,7 +5,7 @@ int	main(int ac, char **av)
 {
 	(void)av;
 	if (ac == 1)
-		handle_no_args();
+		handle_no_args(NULL);
 	else if (ac >= 2 && ac <= 3)
 	{
 		if (ac == 2)
