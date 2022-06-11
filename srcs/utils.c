@@ -18,7 +18,6 @@ void	select_print_color(char *path, char *name, int type)
 		ft_printf("\033[36m");
 }
 
-
 DIR		*get_directory(char *path)
 {
 	DIR *dir;

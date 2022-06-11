@@ -30,6 +30,7 @@ typedef struct 	s_file
 
 // -------------------------------------------------------------- //
 //							Parsing.c							  //
+void		look_for_file_in_directory(char *path);
 void		handle_no_args();
 void		handle_double_args(char *av);
 void		handle_triple_args(char *av1, char *av2);

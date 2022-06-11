@@ -1,24 +1,49 @@
 # include "../includes/header.h"
 # include "../ft_printf/includes/ft_printf.h"
 
+void	look_for_file_in_directory(char *path)
+{
+	DIR *dir = get_directory(".");
+	struct dirent *content;
+	while ((content = readdir(dir)) != NULL)
+	{
+		if (ft_strcmp(content->d_name, path) == 0)
+		{
+			char buff[256];
+			select_print_color(get_current_directory_path(buff, "."), content->d_name, content->d_type);
+			ft_printf("%s\033[0m\n", content->d_name);
+			return ;
+		}
+	}
+	ft_printf("ft_ls: cannot access '%s': No such file or directory\n", path);
+}
+
 void	handle_no_args(char *path)
 {
 	char 	*dir_path;
 	DIR 	*dir;
 	char	buff[256];
 
+	// Using current directory as reference is path is NULL
 	if (path == NULL)
 		dir_path = get_current_directory_path(buff, ".");
 	else
 	{
+		// Trying to get the current directory path
 		dir_path = get_current_directory_path(buff, path);
-		// if dir_path == NULL, try and verif if a file with the same exists in the current working folder
+		// If path isn't a directory or we can't open it, checking if it's just a file inside current directory
+		if (dir_path == NULL)
+			look_for_file_in_directory(path);
 	}
 	if (dir_path != NULL)
 	{
+		// If we did manage to get a valid folder_path from path argument,
+		// we get the DIR pointer to this repository
 		dir = get_directory(dir_path);
+		// If we can't open the directory, we try to check if it's a file
 		if (dir == NULL)
-			ft_printf("ft_ls: can't open directory, check access permissions.\n");
+			look_for_file_in_directory(path);
+		// If we do have this folder we print it's content
 		else
 			print_directory_content(dir_path, dir);
 	}
