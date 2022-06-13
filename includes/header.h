@@ -18,7 +18,7 @@ typedef struct s_options
 	int	invalid;
 }				t_options;
 
-// struct containing informations about each of parsed using readdir, also
+// struct containing informations about each fd parsed using readdir, also
 // containing pointer to next file descriptor since we are using a linked list
 typedef struct 	s_file
 {
