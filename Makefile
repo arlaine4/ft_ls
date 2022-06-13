@@ -7,7 +7,7 @@ LIBFT_PATH = ft_printf/libft/
 FT_PRINTF_PATH = ft_printf/
 OBJ_FT_PRINTF = $(FT_PRINTF_PATH)/
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g3
 INC = -I ./includes/ -I ./$(LIBFT_PATH)includes/ -I ./$(FT_PRINTF_PATH)includes/
 
 #SRCS_NAME = main.c utils.c handle_exec_arguments.c 

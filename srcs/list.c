@@ -2,6 +2,7 @@
 
 void	fill_list_content(t_file **node, struct dirent *content)
 {
+	// faire comparaison, add front et add back
 	(*node)->name = content->d_name;
 	(*node)->type = content->d_type;
 	(*node)->next = NULL;
@@ -27,3 +28,4 @@ t_file	*add_node_to_list(t_file **prev, struct dirent *content)
 	fill_list_content(&node, content);
 	return node;
 }
+

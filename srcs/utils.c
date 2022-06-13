@@ -32,35 +32,49 @@ void	print_directory_content(char *dir_path, DIR *dir)
 	// maybe delete dir_path param ?
 	(void)dir_path;
 
-	struct dirent *content;
+	struct dirent *content = NULL;
 
 	t_file *head;
+	t_file *tmp;
 	// loop until we don't have a fd starting with a dot before setting up head
+	//ft_printf("name : %s\n", readdir(dir)->d_name);
 	if ((content = readdir(dir)) != NULL)
 		head = init_list_head(content);
+	//ft_printf("head name : %s\n", head->name);
 	t_file	*prev = NULL;
+	tmp = head;
 	while ((content = readdir(dir)) != NULL)
 	{
+		while (tmp->next != NULL)
+		{
+//			ft_printf("name : %-20s\ttype : %d\n", tmp->name, tmp->type);
+			tmp = tmp->next;
+		}
 		t_file	*node;
 		if (prev == NULL)
 			node = add_node_to_list(&head, content);
 		else
 			node = add_node_to_list(&prev, content);
 		prev = node;
-		/*
-		if ((content->d_name[0] != '.' && ft_strcmp(content->d_name, "..") != 0) \
-				&& content->d_type == 4)
+		ft_printf("fd : %s\tstrcmp : %d\n", content->d_name, ft_strcmp(content->d_name, ".."));
+		if (content->d_name[0] == '.' || ft_strcmp(content->d_name, "..") == 0)
+			continue;
+		if (content->d_name[0] != '.' && ft_strcmp(content->d_name, "..") != 0 && \
+				content->d_type == 4)
 		{
-			ft_printf("\n\nOpening folder %s\n\n", content->d_name);
-			dir = get_directory(ft_strjoin("./", content->d_name));
-			return print_directory_content("", dir);
-		}*/
+			dir = opendir(content->d_name);
+			if (!dir)
+				return;
+			//dir = opendir(ft_strjoin("./", content->d_name));
+	//		ft_printf("Opening dir : %s\n", content->d_name);
+			print_directory_content("", dir);
+		}
 	}
-	while (head->next != NULL)
+	/*while (head->next != NULL)
 	{
 		ft_printf("node->name : %-20s\tnode->type : %d\n", head->name, head->type);
 		head = head->next;
-	}
+	}*/
 }
 
 char	*get_current_directory_path(char *buff, char *path)
@@ -74,7 +88,7 @@ char	*get_current_directory_path(char *buff, char *path)
 		buff = ft_strjoin(buff, path);
 		//tmp = ft_strjoin(path, "/");
 	}
-		
+
 	// add condition if we do have path as a parameter so we don't use getcwd
 	// but opendir or something like that instead
 	if (buff == NULL)
