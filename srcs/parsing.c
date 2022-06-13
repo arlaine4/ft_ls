@@ -35,6 +35,7 @@ void	handle_no_args(char *path)
 	char 	*dir_path;
 	DIR 	*dir;
 	char	buff[256];
+	t_file	*head = NULL;
 
 	// Using current directory as reference is path is NULL
 	if (path == NULL)
@@ -57,7 +58,9 @@ void	handle_no_args(char *path)
 			look_for_file_in_directory(path);
 		// If we do have this folder we print it's content
 		else
-			print_directory_content(dir_path, dir);
+		{
+			print_directory_content(head, dir_path, dir);
+		}
 	}
 	else
 		ft_printf("ft_ls: cannot access '%s': No such file or directory", path);

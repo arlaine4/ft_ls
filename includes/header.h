@@ -24,7 +24,8 @@ typedef struct 	s_file
 {
 	char			*name;
 	int				type;
-	struct s_file	*next;
+	struct 			s_file	*sub_dir;
+	struct 			s_file	*next;
 }				t_file;
 
 
@@ -41,12 +42,13 @@ t_options	*get_prog_options(char *s, t_options *options);
 //							utils.c								  //
 DIR			*get_directory(char *path);
 void		select_print_color(char *path, char *name, int type);
-void		print_directory_content(char *dir_path, DIR *dir);
+void		print_directory_content(t_file *head, char *dir_path, DIR *dir);
 char		*get_current_directory_path(char *buff, char *path);
 // -------------------------------------------------------------- //
 
 // -------------------------------------------------------------- //
 //							list.c								  //
+void		print_list_content(t_file *node);
 void		fill_list_content(t_file **node, struct dirent *content);
 t_file		*init_list_head(struct dirent *entry);
 t_file		*add_node_to_list(t_file **prev, struct dirent *content);
