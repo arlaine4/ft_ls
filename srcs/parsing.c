@@ -3,17 +3,29 @@
 
 void	look_for_file_in_directory(char *path)
 {
-	DIR *dir = get_directory(".");
-	struct dirent *content;
+	DIR 	*dir = get_directory(path);
+	struct 	dirent *content;
+	char	buff[256];
+	char	*absolute_path = get_current_directory_path(buff, ".");
 	while ((content = readdir(dir)) != NULL)
 	{
 		if (ft_strcmp(content->d_name, path) == 0)
 		{
-			char buff[256];
-			select_print_color(get_current_directory_path(buff, "."), content->d_name, content->d_type);
+			//select_print_color(get_current_directory_path(buff, "."), content->d_name, content->d_type);
+			select_print_color(absolute_path, content->d_name, content->d_type);
 			ft_printf("%s\033[0m\n", content->d_name);
 			return ;
 		}
+		// Need to make some kind of recursive search here if we run into folders while looking
+		//  for a potential file, need to change the path and call this function with a new path and
+		//  take a look inside this folder
+
+		/*else if (content->d_type == 4)
+		{
+			path = ft_strjoin(absolute_path, "/");
+			path = ft_strjoin(path, content->d_name);
+			return look_for_file_in_directory(path);
+		}*/
 	}
 	ft_printf("ft_ls: cannot access '%s': No such file or directory\n", path);
 }

@@ -47,7 +47,9 @@ char		*get_current_directory_path(char *buff, char *path);
 
 // -------------------------------------------------------------- //
 //							list.c								  //
+void		fill_list_content(t_file **node, struct dirent *content);
 t_file		*init_list_head(struct dirent *entry);
+t_file		*add_node_to_list(t_file **prev, struct dirent *content);
 // -------------------------------------------------------------- //
 
 

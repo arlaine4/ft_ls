@@ -15,7 +15,7 @@ void	select_print_color(char *path, char *name, int type)
 			ft_printf("\033[1;32m");
 	}
 	else if (type == 10)
-		ft_printf("\033[36m");
+		ft_printf("\033[1;36m");
 }
 
 DIR		*get_directory(char *path)
@@ -29,15 +29,38 @@ DIR		*get_directory(char *path)
 
 void	print_directory_content(char *dir_path, DIR *dir)
 {
-	struct	dirent *content;
+	// maybe delete dir_path param ?
+	(void)dir_path;
+
+	struct dirent *content;
+
+	t_file *head;
+	// loop until we don't have a fd starting with a dot before setting up head
+	if ((content = readdir(dir)) != NULL)
+		head = init_list_head(content);
+	t_file	*prev = NULL;
 	while ((content = readdir(dir)) != NULL)
 	{
-		select_print_color(dir_path, content->d_name, content->d_type);
-		if (content->d_name[0] != '.')
-			ft_printf("%s  ", content->d_name);
-		ft_printf("\033[0m");
+		t_file	*node;
+		if (prev == NULL)
+			node = add_node_to_list(&head, content);
+		else
+			node = add_node_to_list(&prev, content);
+		prev = node;
+		/*
+		if ((content->d_name[0] != '.' && ft_strcmp(content->d_name, "..") != 0) \
+				&& content->d_type == 4)
+		{
+			ft_printf("\n\nOpening folder %s\n\n", content->d_name);
+			dir = get_directory(ft_strjoin("./", content->d_name));
+			return print_directory_content("", dir);
+		}*/
 	}
-	ft_printf("\n");
+	while (head->next != NULL)
+	{
+		ft_printf("node->name : %-20s\tnode->type : %d\n", head->name, head->type);
+		head = head->next;
+	}
 }
 
 char	*get_current_directory_path(char *buff, char *path)
