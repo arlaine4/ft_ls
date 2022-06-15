@@ -1,6 +1,16 @@
 # include "../includes/header.h"
 # include "../ft_printf/includes/ft_printf.h"
 
+int		str_double_len(char **args)
+{
+	int i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	return i;
+}
+
 void	print_args_debug(char *path, t_options *options)
 {
 	ft_printf("Path found : %s\n", path);
