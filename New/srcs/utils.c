@@ -1,0 +1,15 @@
+# include "../includes/header.h"
+# include "../ft_printf/includes/ft_printf.h"
+
+void	print_args_debug(char *path, t_options *options)
+{
+	ft_printf("Path found : %s\n", path);
+	if (options)
+	{
+		ft_printf("options->a : %d\n", options->a);
+		ft_printf("options->l : %d\n", options->l);
+		ft_printf("options->R : %d\n", options->R);
+		ft_printf("options->r : %d\n", options->r);
+		ft_printf("options->t : %d\n", options->t);
+	}
+}
