@@ -20,8 +20,10 @@ void	init_path_node(t_path **path_node, char *path, char *add_to_path)
 	(*path_node) = (t_path *)malloc(sizeof(t_path));
 	if (!(*path_node))
 		return ;
-	ft_strcat(path, "/");
-	ft_strcat(path, add_to_path);
+	path = ft_strjoin(path, "/");
+	path = ft_strjoin(path, add_to_path);
+	//ft_strcat(path, "/");
+	//ft_strcat(path, add_to_path);
 	(*path_node)->c_path = path;
 	(*path_node)->next = NULL;
 }

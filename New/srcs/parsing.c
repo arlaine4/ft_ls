@@ -18,9 +18,12 @@ t_path	*parse_single_arg(t_options **options, char *path, char *arg)
 	}
 	else
 	{
-		(*options) = (t_options *)malloc(sizeof(t_options));
 		if (!(*options))
-			return NULL;
+		{
+			(*options) = (t_options *)malloc(sizeof(t_options));
+			if (!(*options))
+				return NULL;
+		}
 		loop_over_argv(options, arg);
 		return NULL;
 	}
@@ -51,9 +54,9 @@ t_path	*parse_multiple_args(t_options **options, char *path, char **args)
 				curr_path = add_node_to_paths(&prev, curr_path);
 				prev = curr_path;
 			}
-			else
+			else if (!curr_path && args[i][0] != '-')
 			{
-				ft_printf("ft_ls: cannot access '%s': No such file or directory\n", args[i]);
+				ft_printf("ft_ls: cannot access '%s': no such file or directory.\n", args[i]);
 				continue ;
 			}
 		}

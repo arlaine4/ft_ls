@@ -25,12 +25,16 @@ int	main(int ac, char **av)
 			print_args_debug(dir_path, options);
 	}
 	else if (ac > 2)
+	{
 		paths = parse_multiple_args(&options, dir_path, av);
+		do
+		{
+			ft_printf("%s\n", paths->c_path);
+			paths = paths->next;
+		} while (paths);
+		print_args_debug(NULL, options);
+	}
 	if (!options && !paths)
 		ft_printf("ft_ls: error while parsing arguments.\n");
-	//if ((!options && ft_strcmp(dir_path, new_path) == 0) || options->invalid)
-	//	ft_printf("ft_ls: error while parsing arguments.\n");
-	//else
-	//print_args_debug(dir_path, options);
 	return 0;
 }

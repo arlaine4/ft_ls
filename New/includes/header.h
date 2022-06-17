@@ -9,17 +9,17 @@
 typedef struct 	s_path
 {
 	char			*c_path;
-	struct	t_path	*next;
+	void			*next;
 }				t_path;
 
 // Storing ls arguments : -l -R -r -t -a -> -lRrat
 typedef struct	s_options
 {
-	int	l;
-	int	r;
-	int	R;
-	int	a;
-	int	t;
+	int		l;
+	int		r;
+	int		R;
+	int		a;
+	int		t;
 }				t_options;
 
 //------------------------------ utils.c ----------------------------------------------------//
