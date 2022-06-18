@@ -13,7 +13,8 @@ int		str_double_len(char **args)
 
 void	print_args_debug(char *path, t_options *options)
 {
-	ft_printf("Path found : %s\n", path);
+	if (path)
+		ft_printf("Path found : %s\n", path);
 	if (options)
 	{
 		ft_printf("options->a : %d\n", options->a);

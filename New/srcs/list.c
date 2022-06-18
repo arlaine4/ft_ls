@@ -2,10 +2,14 @@
 
 void	print_paths_list(t_path *paths)
 {
-	do
+	if (paths)
 	{
-		ft_printf("path : %s\n", paths->c_path);
-	} while (paths->next);
+		do
+		{
+			ft_printf("path : %s\n", paths->c_path);
+			paths = paths->next;
+		} while (paths);
+	}
 }
 
 t_path	*add_node_to_paths(t_path **prev, t_path *new_path)
@@ -22,8 +26,6 @@ void	init_path_node(t_path **path_node, char *path, char *add_to_path)
 		return ;
 	path = ft_strjoin(path, "/");
 	path = ft_strjoin(path, add_to_path);
-	//ft_strcat(path, "/");
-	//ft_strcat(path, add_to_path);
 	(*path_node)->c_path = path;
 	(*path_node)->next = NULL;
 }
