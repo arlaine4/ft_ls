@@ -6,8 +6,12 @@ void	print_paths_list(t_path *paths)
 	{
 		do
 		{
-			ft_printf("path : %s\n", paths->c_path);
-			paths = paths->next;
+			ft_printf("path : %s\tsingle_file : %5d\n", \
+				paths->c_path, paths->single_file);
+			if (paths->next)
+				paths = paths->next;
+			else
+				break;
 		} while (paths);
 	}
 }

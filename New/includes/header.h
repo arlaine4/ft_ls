@@ -9,6 +9,7 @@
 typedef struct 	s_path
 {
 	char			*c_path;
+	int				single_file;
 	void			*next;
 }				t_path;
 
@@ -24,6 +25,7 @@ typedef struct	s_options
 
 //------------------------------ utils.c ----------------------------------------------------//
 void	print_args_debug(char *path, t_options *options);
+int		check_if_file_is_dir(const char *file_name);
 int		str_double_len(char **args);
 //------------------------------------------------------------------------------------------//
 

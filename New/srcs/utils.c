@@ -1,6 +1,14 @@
 # include "../includes/header.h"
 # include "../ft_printf/includes/ft_printf.h"
 
+int		check_if_file_is_dir(const char *file_name)
+{
+	struct stat path;
+
+	stat(file_name, &path);
+	return S_ISREG(path.st_mode);
+}
+
 int		str_double_len(char **args)
 {
 	int i;

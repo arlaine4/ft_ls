@@ -8,7 +8,14 @@ t_path	*parse_single_arg(t_options **options, char *path, char *arg)
 	c_path = NULL;
 	if (arg[0] != '-')
 	{
-		if (!opendir(arg))
+		(void)(*options);
+		if (check_if_file_is_dir(arg) != 0)
+		{
+			init_path_node(&c_path, path, arg);
+			c_path->single_file = 1;
+			return c_path;
+		}
+		else if (!opendir(arg))
 			return NULL;
 		else
 		{
