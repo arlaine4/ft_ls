@@ -28,8 +28,33 @@ void	init_path_node(t_path **path_node, char *path, char *add_to_path)
 	(*path_node) = (t_path *)malloc(sizeof(t_path));
 	if (!(*path_node))
 		return ;
-	path = ft_strjoin(path, "/");
-	path = ft_strjoin(path, add_to_path);
+	if (add_to_path)
+	{
+		path = ft_strjoin(path, "/");
+		path = ft_strjoin(path, add_to_path);
+	}
 	(*path_node)->c_path = path;
 	(*path_node)->next = NULL;
 }
+
+void	init_new_node(t_path **path, struct stat *buf, struct dirent *content)
+{
+	ft_printf("in path : %s\n", (*path)->c_path);
+	ft_printf("init new node for %s\n", content->d_name);
+	//(void)(*path);
+	//(void)buf;
+	//(void)content;
+	t_node	*node;
+
+	node = (t_node *)malloc(sizeof(t_node));
+	if (!node)
+		return ;
+	// TODO need to finish filling new linked_list sub node
+	node->name = content->d_name;
+	node->mode = buf->st_mode;
+	ft_printf("node->mode : %hu\n", node->mode);
+	node->next = NULL;
+	(*path)->node = node;
+}
+
+

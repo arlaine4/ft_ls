@@ -39,14 +39,16 @@ t_path	*parse_single_arg(t_options **options, char *path, char *arg)
 
 t_path	*parse_multiple_args(t_options **options, char *path, char **args)
 {
-	t_path	*curr_path;
-	t_path	*head;
-	t_path	*prev;
+	long unsigned int		len_args;
+	t_path					*curr_path;
+	t_path					*head;
+	t_path					*prev;
 
+	len_args = str_double_len(args);
 	curr_path = NULL;
 	head = NULL;
 	prev = NULL;
-	for (int i = 1; i < str_double_len(args); i++)
+	for (long unsigned int i = 1; i < len_args; i++)
 	{
 		if (!head)
 		{
@@ -74,11 +76,14 @@ t_path	*parse_multiple_args(t_options **options, char *path, char **args)
 
 void	loop_over_argv(t_options **options, char *arg)
 {
-	if (ft_strlen(arg) == 1)
+	int	len_arg;
+
+	len_arg = ft_strlen(arg);
+	if (len_arg == 1)
 		(*options) = NULL;
 	else
 	{
-		for (size_t i = 1; i < ft_strlen(arg); i++)
+		for (int i = 1; i < len_arg; i++)
 		{
 			switch (arg[i])
 			{

@@ -10,8 +10,7 @@ OBJ_FT_PRINTF = $(FT_PRINTF_PATH)/
 FLAGS = -Wall -Werror -Wextra -g3
 INC = -I ./includes/ -I ./$(LIBFT_PATH)includes/ -I ./$(FT_PRINTF_PATH)includes/
 
-#SRCS_NAME = main.c utils.c handle_exec_arguments.c 
-SRCS_NAME = main.c utils.c parsing.c list.c
+SRCS_NAME = main.c utils.c parsing.c list.c ls.c
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(SRCS_NAME:.c=.o))

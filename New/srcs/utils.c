@@ -9,9 +9,9 @@ int		check_if_file_is_dir(const char *file_name)
 	return S_ISREG(path.st_mode);
 }
 
-int		str_double_len(char **args)
+long unsigned int		str_double_len(char **args)
 {
-	int i;
+	long unsigned int i;
 
 	i = 0;
 	while (args[i])
@@ -19,10 +19,8 @@ int		str_double_len(char **args)
 	return i;
 }
 
-void	print_args_debug(char *path, t_options *options)
+void	print_args_debug(t_options *options)
 {
-	if (path)
-		ft_printf("Path found : %s\n", path);
 	if (options)
 	{
 		ft_printf("options->a : %d\n", options->a);
